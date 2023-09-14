@@ -51,4 +51,10 @@ public class MemberController {
         model.addAttribute("member", memberDTO1);
         return "memberPages/memberMain";
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.removeAttribute("loginEmail");
+        return "index";
+    }
 }

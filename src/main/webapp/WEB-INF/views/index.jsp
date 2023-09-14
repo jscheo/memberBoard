@@ -5,8 +5,7 @@
 </head>
 <body>
     <h2>시작화면</h2>
-    <a href="/member/save">회원가입</a>
-    <a href="/member/login">로그인</a>
+    <%@include file="component/nav.jsp"%>
 
 </body>
 </html>
