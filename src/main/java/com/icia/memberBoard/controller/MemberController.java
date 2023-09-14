@@ -46,7 +46,6 @@ public class MemberController {
     @PostMapping("/login")
     public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session, Model model){
         MemberDTO memberDTO1 = memberService.login(memberDTO);
-        System.out.println("memberDTO1 = " + memberDTO1);
         session.setAttribute("loginEmail", memberDTO1.getMemberEmail());
         model.addAttribute("member", memberDTO1);
         return "memberPages/memberMain";
