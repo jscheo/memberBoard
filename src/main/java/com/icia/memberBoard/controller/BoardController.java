@@ -30,23 +30,23 @@ public class BoardController {
 
     @GetMapping("/list")
     public String list(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-//                       @RequestParam(value = "p", required = false, defaultValue = "") String q,
-//                       @RequestParam(value = "type", required = false, defaultValue = "boardTitle") String type,
+                       @RequestParam(value = "q", required = false, defaultValue = "") String q,
+                       @RequestParam(value = "type", required = false, defaultValue = "boardTitle") String type,
                        Model model) {
         List<BoardDTO> boardDTOList = null;
         PageDTO pageDTO = null;
 
-//        if (q.equals("")) {
+        if (q.equals("")) {
             boardDTOList = boardService.pagingList(page);
             pageDTO = boardService.pageNumber(page);
-//        }else{
-//            boardDTOList = boardService.searchList(q, type,page);
-//            pageDTO = boardService.searchPageNumber(q, type, page);
-//        }
+        }else{
+            boardDTOList = boardService.searchList(q, type, page);
+            pageDTO = boardService.searchPageNumber(q, type, page);
+        }
             model.addAttribute("boardList", boardDTOList);
             model.addAttribute("paging", pageDTO);
-//            model.addAttribute("q", q);
-//            model.addAttribute("type", type);
+            model.addAttribute("q", q);
+            model.addAttribute("type", type);
             model.addAttribute("page", page);
             return "/boardPages/boardList";
         }

@@ -78,4 +78,38 @@ public class BoardService {
         boardDTO.setFileAttached(0);
         boardRepository.save(boardDTO);
     }
+
+    public List<BoardDTO> searchList(String q, String type, int page) {
+        Map<String, Object> searchParam = new HashMap<>();
+        searchParam.put("q", q);
+        searchParam.put("type", type);
+
+
+        int pageLimit = 5;
+        int pagingStart = (page -1) * pageLimit;
+        searchParam.put("start", pagingStart);
+        searchParam.put("limit", pageLimit);
+        return boardRepository.searchList(searchParam);
+    }
+
+    public PageDTO searchPageNumber(String q, String type, int page) {
+        int pageLimit = 5;
+        int blockLimit = 3;
+        Map<String, String> pagingParam = new HashMap<>();
+        pagingParam.put("q", q);
+        pagingParam.put("type", type);
+        int boardCount = boardRepository.boardSearchCount(pagingParam);
+        int maxPage = (int) (Math.ceil((double)boardCount / pageLimit));
+        int startPage = (((int)(Math.ceil((double) page / blockLimit))) - 1) * blockLimit + 1;
+        int endPage = startPage + blockLimit - 1;
+        if(endPage > maxPage){
+           endPage = maxPage;
+        }
+        PageDTO pageDTO = new PageDTO();
+        pageDTO.setPage(page);
+        pageDTO.setMaxPage(maxPage);
+        pageDTO.setEndPage(endPage);
+        pageDTO.setStartPage(startPage);
+        return pageDTO;
+    }
 }

@@ -25,4 +25,15 @@
     <select id="count" resultType="Integer">
         select count(id) from newBoard_table
     </select>
+
+    <select id="search" parameterType="java.util.HashMap" resultType="board">
+        select id, boardWriter, boardTitle,
+               date_format(createdAt, "%y-%m-%d") as createdAt, boardHits
+        from newBoard_table where ${type} like concat('%', #{q},'%') order by id desc
+            limit #{start}, #{limit}
+    </select>
+
+    <select id="searchCount" parameterType="java.util.HashMap" resultType="Integer">
+        select count(id) from newBoard_table where ${type} like concat('%', #{q},'%')
+    </select>
 </mapper>

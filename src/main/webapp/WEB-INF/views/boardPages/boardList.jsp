@@ -10,6 +10,16 @@
     <a href="/board/save">글작성</a>
 
 <div id="section">
+    <div class="container">
+        <form action="/board/list" method="get">
+            <select name="type">
+                <option value="boardTitle">제목</option>
+                <option value="boardWriter">작성자</option>
+            </select>
+            <input type="text" name="q" placeholder="검색어를 입력하세요">
+            <input type="submit" value="검색">
+        </form>
+    </div>
     <div class="container" id="list">
         <table class="table table-striped table-hover text-center">
             <tr>
@@ -43,7 +53,7 @@
                 </c:when>
                 <c:otherwise>
                     <li class="page-item">
-                        <a class="page-link" href="/board/list?page?=${paging.page-1}">[이전]</a>
+                        <a class="page-link" href="/board/list?page?=${paging.page-1}&q=${q}&type=${type}">[이전]</a>
                     </li>
                 </c:otherwise>
             </c:choose>
@@ -57,7 +67,7 @@
                     </c:when>
                     <c:otherwise>
                         <li>
-                            <a class="page-link" href="/board/list?page=${i}">${i}</a>
+                            <a class="page-link" href="/board/list?page=${i}&q=${q}&type=${type}">${i}</a>
                         </li>
                     </c:otherwise>
                 </c:choose>
@@ -71,7 +81,7 @@
                 </c:when>
                 <c:otherwise>
                     <li class="page-item">
-                        <a href="/board/list?page=${paging.page + 1}">[다음]</a>
+                        <a href="/board/list?page=${paging.page + 1}&q=${q}&type=${type}">[다음]</a>
                     </li>
                 </c:otherwise>
             </c:choose>
