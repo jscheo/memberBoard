@@ -8,6 +8,9 @@
     <li class="menu-item">
       <a href="/board/list">글목록</a>
     </li>
+    <li>
+      <a href="/board/save">글 작성</a>
+    </li>
     <c:if test="${sessionScope.loginEmail == 'admin'}">
       <li class="menu-item">
         <a href="/member/admin">관리자 메뉴</a>

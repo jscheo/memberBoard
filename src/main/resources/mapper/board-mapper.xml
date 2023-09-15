@@ -48,4 +48,16 @@
     <select id="findFile" parameterType="Long" resultType="boardFile">
         select * from newBoard_file_table where boardId = #{boardId}
     </select>
+
+    <select id="updateForm" parameterType="Long" resultType="board">
+        select * from newBoard_table where id = #{id}
+    </select>
+
+    <select id="update" parameterType="board">
+        update newBoard_table set boardTitle = #{boardTitle}, boardContents = #{boardContents} where id = #{id}
+    </select>
+
+    <delete id="delete" parameterType="Long">
+        delete from newBoard_table where id = #{id}
+    </delete>
 </mapper>

@@ -1,5 +1,6 @@
 package com.icia.memberBoard.controller;
 
+import com.google.protobuf.RpcUtil;
 import com.icia.memberBoard.dto.BoardDTO;
 import com.icia.memberBoard.dto.BoardFileDTO;
 import com.icia.memberBoard.dto.PageDTO;
@@ -82,6 +83,24 @@ public class BoardController {
             boardDTO.setBoardContents("contents" + i);
             boardService.sampleData(boardDTO);
         }
+        return "redirect:/board/list";
+    }
+
+    @GetMapping("/update")
+    public String update(@RequestParam("id") Long id, Model model){
+        BoardDTO boardDTO = boardService.updateForm(id);
+        model.addAttribute("board", boardDTO);
+        return "/boardPages/boardUpdate";
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute BoardDTO boardDTO){
+        boardService.update(boardDTO);
+        return "redirect:/board/list";
+    }
+    @GetMapping("/delete")
+    public String delete(@RequestParam("id") Long id){
+        boardService.delete(id);
         return "redirect:/board/list";
     }
 }

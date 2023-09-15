@@ -124,4 +124,16 @@ public class BoardService {
     public List<BoardFileDTO> findFile(Long id) {
         return boardRepository.findFile(id);
     }
+
+    public BoardDTO updateForm(Long id) {
+        return boardRepository.updateForm(id);
+    }
+
+    public void update(BoardDTO boardDTO) {
+        boardRepository.update(boardDTO);
+    }
+
+    public void delete(Long id) {
+        boardRepository.delete(id);
+    }
 }

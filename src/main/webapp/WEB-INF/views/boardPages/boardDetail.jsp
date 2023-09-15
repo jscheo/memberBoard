@@ -42,6 +42,25 @@
                     </td>
                 </tr>
             </c:if>
+            <c:if test="${board.boardWriter == sessionScope.loginEmail}">
+            <tr>
+                <td>
+                    <button class="btn btn-dark" onclick="update_fn()">수정</button>
+                </td>
+                <td>
+                    <button class="btn btn-dark" onclick="delete_fn()">삭제</button>
+                </td>
+            </tr>
+            </c:if>
         </table>
 </body>
+<script>
+    const update_fn = () =>{
+        location.href = "/board/update?id=" + ${board.id};
+    }
+
+    const delete_fn = () =>{
+        location.href = "/board/delete?id=" + ${board.id};
+    }
+</script>
 </html>
