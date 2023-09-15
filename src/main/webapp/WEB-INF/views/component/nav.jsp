@@ -7,6 +7,9 @@
     <li class="menu-item">
       <a href="/member/save">회원가입</a>
     </li>
+    <li class="menu-item">
+      <a href="/board/sample">데이터붓기</a>
+    </li>
     <!--          <li class="menu-item">-->
     <!--              <a href="/login">로그인</a>-->
     <!--          </li>-->
@@ -29,6 +32,7 @@
     //로그인 했음
     loginArea.innerHTML = "<a href ='/memberPages/memberMain'>" + loginEmail + "님 환영해요!</a>" +
             "<a href='/logout'>logout</a>";
+
   }else{
     //비로그인
     loginArea.innerHTML = "<a href='/member/login'>로그인</a>";

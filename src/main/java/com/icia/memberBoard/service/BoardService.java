@@ -2,6 +2,7 @@ package com.icia.memberBoard.service;
 
 import com.icia.memberBoard.dto.BoardDTO;
 import com.icia.memberBoard.dto.BoardFileDTO;
+import com.icia.memberBoard.dto.PageDTO;
 import com.icia.memberBoard.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BoardService {
@@ -42,5 +45,37 @@ public class BoardService {
 
     public List<BoardDTO> findAll() {
         return boardRepository.findAll();
+    }
+
+    public List<BoardDTO> pagingList(int page) {
+        int pageLimit = 5;
+        int pagingStart = (page -1) * pageLimit;
+        Map<String, Integer> pagingParam = new HashMap<>();
+        pagingParam.put("start", pagingStart);
+        pagingParam.put("limit", pageLimit);
+        return boardRepository.pagingList(pagingParam);
+    }
+
+    public PageDTO pageNumber(int page) {
+        int pageLimit = 5;
+        int blockLimit = 3;
+        int boardCount = boardRepository.boardCount();
+        int maxPage = (int) (Math.ceil((double)boardCount / pageLimit));
+        int startPage = (((int)(Math.ceil((double) page / blockLimit))) - 1) * blockLimit + 1;
+        int endPage = startPage + blockLimit - 1;
+        if(endPage > maxPage){
+            endPage = maxPage;
+        }
+        PageDTO pageDTO = new PageDTO();
+        pageDTO.setPage(page);
+        pageDTO.setStartPage(startPage);
+        pageDTO.setMaxPage(maxPage);
+        pageDTO.setEndPage(endPage);
+        return pageDTO;
+    }
+
+    public void sampleData(BoardDTO boardDTO) {
+        boardDTO.setFileAttached(0);
+        boardRepository.save(boardDTO);
     }
 }

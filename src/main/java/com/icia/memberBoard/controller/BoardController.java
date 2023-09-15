@@ -1,14 +1,12 @@
 package com.icia.memberBoard.controller;
 
 import com.icia.memberBoard.dto.BoardDTO;
+import com.icia.memberBoard.dto.PageDTO;
 import com.icia.memberBoard.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,14 +18,8 @@ public class BoardController {
     private BoardService boardService;
 
     @GetMapping("/save")
-    public String save(){
+    public String save() {
         return "/boardPages/boardSave";
-    }
-    @GetMapping("/list")
-    public String list(Model model){
-        List<BoardDTO> boardDTOList = boardService.findAll();
-        model.addAttribute("boardList", boardDTOList);
-        return "/boardPages/boardList";
     }
 
     @PostMapping("/save")
@@ -36,4 +28,40 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
-}
+    @GetMapping("/list")
+    public String list(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+//                       @RequestParam(value = "p", required = false, defaultValue = "") String q,
+//                       @RequestParam(value = "type", required = false, defaultValue = "boardTitle") String type,
+                       Model model) {
+        List<BoardDTO> boardDTOList = null;
+        PageDTO pageDTO = null;
+
+//        if (q.equals("")) {
+            boardDTOList = boardService.pagingList(page);
+            pageDTO = boardService.pageNumber(page);
+//        }else{
+//            boardDTOList = boardService.searchList(q, type,page);
+//            pageDTO = boardService.searchPageNumber(q, type, page);
+//        }
+            model.addAttribute("boardList", boardDTOList);
+            model.addAttribute("paging", pageDTO);
+//            model.addAttribute("q", q);
+//            model.addAttribute("type", type);
+            model.addAttribute("page", page);
+            return "/boardPages/boardList";
+        }
+
+        @GetMapping("/sample")
+        public String sampleData(){
+            for(int i = 1 ; i<= 20 ; i++){
+                BoardDTO boardDTO = new BoardDTO();
+                boardDTO.setBoardWriter("aa");
+                boardDTO.setBoardTitle("title" + i);
+                boardDTO.setBoardContents("contents" + i);
+                boardService.sampleData(boardDTO);
+            }
+            return "redirect:/board/list";
+        }
+
+    }
+

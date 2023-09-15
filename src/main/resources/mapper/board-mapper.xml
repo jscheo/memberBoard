@@ -16,4 +16,13 @@
     <select id="findAll" resultType="board">
         select * from newBoard_table
     </select>
+
+    <select id="pagingList" parameterType="java.util.HashMap" resultType="board">
+        select id, boardWriter, boardTitle, date_format(createdAt, "%y-%m-%d") as createdAt,
+               boardHits from newBoard_table order by id desc limit #{start}, #{limit}
+    </select>
+
+    <select id="count" resultType="Integer">
+        select count(id) from newBoard_table
+    </select>
 </mapper>
