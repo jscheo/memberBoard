@@ -8,7 +8,7 @@
 <body>
     <h2>글목록</h2>
     <a href="/board/save">글작성</a>
-
+    <a href="/">Home</a>
 <div id="section">
     <div class="container">
         <form action="/board/list" method="get">
@@ -33,7 +33,7 @@
             <c:forEach items="${boardList}" var="board">
                 <tr>
                     <td>${board.id}</td>
-                    <td>${board.boardTitle}</td>
+                    <td><a href="/board/detail?id=${board.id}&page=${paging.page}&q=${q}&type=${type}">${board.boardTitle}</a></td>
                     <td>${board.boardWriter}</td>
                     <td>${board.boardContents}</td>
                     <td>${board.boardHits}</td>

@@ -5,7 +5,10 @@
 </head>
 <body>
     <h2>시작화면</h2>
-    <%@include file="component/nav.jsp"%>
+    <a href="/board/list">글 목록</a>
+    <a href="/board/sample">데이터붓기</a>
+    <a href="/member/save">회원가입</a>
+    <a href='/member/login'>로그인</a>
 
 </body>
 </html>

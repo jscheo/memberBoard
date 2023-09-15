@@ -34,7 +34,7 @@ public class BoardService {
                 BoardFileDTO boardFileDTO = new BoardFileDTO();
                 boardFileDTO.setOriginalFileName(originalFileName);
                 boardFileDTO.setStoredFileName(storedFileName);
-                boardFileDTO.setId(saveBoard.getId());
+                boardFileDTO.setBoardId(saveBoard.getId());
 
                 String savePath = "C:\\board_img\\" + storedFileName;
                 boardFile.transferTo(new File(savePath));
@@ -111,5 +111,17 @@ public class BoardService {
         pageDTO.setEndPage(endPage);
         pageDTO.setStartPage(startPage);
         return pageDTO;
+    }
+
+    public void updateHits(Long id) {
+        boardRepository.updateHits(id);
+    }
+
+    public BoardDTO findById(Long id) {
+        return boardRepository.findById(id);
+    }
+
+    public List<BoardFileDTO> findFile(Long id) {
+        return boardRepository.findFile(id);
     }
 }

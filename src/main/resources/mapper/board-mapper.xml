@@ -36,4 +36,16 @@
     <select id="searchCount" parameterType="java.util.HashMap" resultType="Integer">
         select count(id) from newBoard_table where ${type} like concat('%', #{q},'%')
     </select>
+
+    <update id="updateHits" parameterType="Long">
+        update newBoard_table set boardHits = boardHits +1 where id = #{id}
+    </update>
+
+    <select id="findById" parameterType="Long" resultType="board">
+        select * from newBoard_table where id = #{id}
+    </select>
+
+    <select id="findFile" parameterType="Long" resultType="boardFile">
+        select * from newBoard_file_table where boardId = #{boardId}
+    </select>
 </mapper>

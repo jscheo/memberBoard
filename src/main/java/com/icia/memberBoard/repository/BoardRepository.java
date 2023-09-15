@@ -43,4 +43,16 @@ public class BoardRepository {
     public int boardSearchCount(Map<String, String> pagingParam) {
         return sql.selectOne("Board.searchCount", pagingParam);
     }
+
+    public void updateHits(Long id) {
+        sql.update("Board.updateHits", id);
+    }
+
+    public BoardDTO findById(Long id) {
+        return sql.selectOne("Board.findById", id);
+    }
+
+    public List<BoardFileDTO> findFile(Long boardId) {
+        return sql.selectList("Board.findFile", boardId);
+    }
 }
