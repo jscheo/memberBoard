@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div id="nav">
   <ul class="menu">
     <li class="menu-item">
@@ -9,6 +10,12 @@
     </li>
     <li class="menu-item">
       <a href="/board/sample">데이터붓기</a>
+    </li>
+    <c:if test="${sessionScope.loginEmail == 'admin'}">
+      <a href="/member/admin">관리자 메뉴</a>
+    </c:if>
+
+
     </li>
     <!--          <li class="menu-item">-->
     <!--              <a href="/login">로그인</a>-->

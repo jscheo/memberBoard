@@ -20,4 +20,12 @@
     <select id="login" parameterType="member" resultType="member">
         select * from newMember_table where memberEmail = #{memberEmail} and memberPassword = #{memberPassword}
     </select>
+
+    <select id="findAll" resultType="member">
+        select * from newMember_table
+    </select>
+
+    <delete id="delete" parameterType="Long">
+        delete from newMember_table where id = #{id}
+    </delete>
 </mapper>

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/member")
@@ -46,14 +47,32 @@ public class MemberController {
     @PostMapping("/login")
     public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session, Model model){
         MemberDTO memberDTO1 = memberService.login(memberDTO);
-        session.setAttribute("loginEmail", memberDTO1.getMemberEmail());
-        model.addAttribute("member", memberDTO1);
-        return "memberPages/memberMain";
+        if(memberDTO1 != null){
+            session.setAttribute("loginEmail", memberDTO1.getMemberEmail());
+            model.addAttribute("member", memberDTO1);
+            return "memberPages/memberMain";
+        }else{
+            return "memberPages/memberLogin";
+        }
+
     }
 
     @GetMapping("/logout")
     public String logout(HttpSession session){
         session.removeAttribute("loginEmail");
         return "index";
+    }
+
+    @GetMapping("/admin")
+    public String admin(Model model){
+        List<MemberDTO> memberDTO = memberService.findAll();
+        model.addAttribute("memberList", memberDTO);
+        return "/memberPages/memberList";
+    }
+
+    @GetMapping("/delete")
+    public String delete(@RequestParam("id") Long id){
+        memberService.delete(id);
+        return "redirect:/member/admin";
     }
 }

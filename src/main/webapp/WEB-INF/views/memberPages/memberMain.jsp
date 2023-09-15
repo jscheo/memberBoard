@@ -10,6 +10,7 @@
     <a href="/member/update">회원정보 수정</a>
     <a href="/member/logout">로그아웃</a>
     <a href="/board/sample">데이터붓기</a>
+    <a href="/member/admin">관리자 메뉴</a>
 
 </body>
 </html>
