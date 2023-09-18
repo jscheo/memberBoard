@@ -40,4 +40,8 @@ public class MemberRepository {
     public void update(MemberDTO memberDTO) {
         sql.update("Member.update", memberDTO);
     }
+
+    public void deleteMember(String memberEmail) {
+        sql.delete("Member.deleteMember", memberEmail);
+    }
 }

@@ -33,4 +33,8 @@
         update newMember_table set memberName = #{memberName}, memberMobile = #{memberMobile}
         where id = #{id}
     </update>
+
+    <delete id="deleteMember" parameterType="String">
+        delete from newMember_table where memberEmail = #{memberEmail}
+    </delete>
 </mapper>

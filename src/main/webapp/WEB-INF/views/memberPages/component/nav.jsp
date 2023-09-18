@@ -20,6 +20,9 @@
     <li>
       <button class="btn btn-warning" onclick="update_fn()">회원정보 수정</button>
     </li>
+    <li>
+      <a href="/member/memberDelete?memberEmail=${sessionScope.loginEmail}">회원 탈퇴</a>
+    </li>
     <!--          <li class="menu-item">-->
     <!--              <a href="/login">로그인</a>-->
     <!--          </li>-->

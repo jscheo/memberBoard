@@ -88,4 +88,11 @@ public class MemberController {
         memberService.update(memberDTO);
         return "/memberPages/memberMain";
     }
+    @GetMapping("/memberDelete")
+    public String memberDelete(HttpSession session){
+        Object memberEmail = session.getAttribute("loginEmail");
+        System.out.println("memberEmail = " + memberEmail);
+        memberService.deleteMember((String) memberEmail);
+        return "index";
+    }
 }

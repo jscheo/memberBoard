@@ -58,5 +58,9 @@ public class MemberService {
     public void update(MemberDTO memberDTO) {
         memberRepository.update(memberDTO);
     }
+
+    public void deleteMember(String memberEmail) {
+        memberRepository.deleteMember(memberEmail);
+    }
 }
 
