@@ -16,7 +16,10 @@
     <select id="findAll" resultType="board">
         select * from newBoard_table
     </select>
-
+    <select id="countList" parameterType="java.util.HashMap" resultType="board">
+        select id, boardWriter, boardTitle, date_format(createdAt, "%y-%m-%d") as createdAt,
+               boardHits from newBoard_table order by boardHits desc limit #{start}, #{limit}
+    </select>
     <select id="pagingList" parameterType="java.util.HashMap" resultType="board">
         select id, boardWriter, boardTitle, date_format(createdAt, "%y-%m-%d") as createdAt,
                boardHits from newBoard_table order by boardHits desc limit #{start}, #{limit}
@@ -35,6 +38,10 @@
 
     <select id="searchCount" parameterType="java.util.HashMap" resultType="Integer">
         select count(id) from newBoard_table where ${type} like concat('%', #{q},'%')
+    </select>
+
+    <select id="pageCount" parameterType="java.util.HashMap" resultType="Integer">
+        select count(id) from newBoard_table
     </select>
 
     <update id="updateHits" parameterType="Long">

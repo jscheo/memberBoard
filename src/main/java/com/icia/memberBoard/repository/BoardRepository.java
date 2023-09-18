@@ -28,6 +28,9 @@ public class BoardRepository {
         return sql.selectList("Board.findAll");
     }
 
+    public List<BoardDTO> countList(Map<String, Integer> countParam) {
+        return sql.selectList("Board.countList", countParam);
+    }
     public List<BoardDTO> pagingList(Map<String, Integer> pagingParam) {
         return sql.selectList("Board.pagingList", pagingParam);
     }
@@ -36,12 +39,20 @@ public class BoardRepository {
         return sql.selectOne("Board.count");
     }
 
+
+
     public List<BoardDTO> searchList(Map<String, Object> searchParam) {
         return sql.selectList("Board.search", searchParam);
     }
 
+
+
     public int boardSearchCount(Map<String, String> pagingParam) {
         return sql.selectOne("Board.searchCount", pagingParam);
+    }
+
+    public int boardPageCount(Map<String, Object> countParam) {
+        return sql.selectOne("Board.pageCount", countParam);
     }
 
     public void updateHits(Long id) {
@@ -67,4 +78,7 @@ public class BoardRepository {
     public void delete(Long id) {
         sql.delete("Board.delete", id);
     }
+
+
+
 }

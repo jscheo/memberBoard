@@ -38,14 +38,20 @@ public class BoardController {
     public String list(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
                        @RequestParam(value = "q", required = false, defaultValue = "") String q,
                        @RequestParam(value = "type", required = false, defaultValue = "boardTitle") String type,
+                       @RequestParam(value = "countPage", required = false, defaultValue = "5") int countPage,
                        Model model) {
+        System.out.println(countPage);
         List<BoardDTO> boardDTOList = null;
         PageDTO pageDTO = null;
 
         if (q.equals("")) {
             boardDTOList = boardService.pagingList(page);
             pageDTO = boardService.pageNumber(page);
-        } else {
+            if(countPage != 5){
+                boardDTOList = boardService.countList(page, countPage);
+                pageDTO = boardService.countNumber(page, countPage);
+            }
+        }else {
             boardDTOList = boardService.searchList(q, type, page);
             pageDTO = boardService.searchPageNumber(q, type, page);
         }

@@ -19,6 +19,10 @@
             <input type="text" name="q" placeholder="검색어를 입력하세요">
             <input type="submit" value="검색">
         </form>
+        <form action="/board/list" method="get">
+            <input type="text" name="countPage" placeholder="출력할 페이지 수 입력하세요">
+            <input type="submit" value="입력">
+        </form>
     </div>
     <div class="container" id="list">
         <table class="table table-striped table-hover text-center">

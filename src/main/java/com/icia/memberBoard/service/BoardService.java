@@ -46,6 +46,15 @@ public class BoardService {
     public List<BoardDTO> findAll() {
         return boardRepository.findAll();
     }
+    public List<BoardDTO> countList(int page,int countPage) {
+        Map<String, Integer> countParam = new HashMap<>();
+
+        int pageLimit = countPage;
+        int pagingStart = (page -1 ) * pageLimit;
+        countParam.put("start", pagingStart);
+        countParam.put("limit", pageLimit);
+        return boardRepository.countList(countParam);
+    }
 
     public List<BoardDTO> pagingList(int page) {
         int pageLimit = 5;
@@ -56,6 +65,24 @@ public class BoardService {
         return boardRepository.pagingList(pagingParam);
     }
 
+    public PageDTO countNumber(int page, int countPage) {
+        int pageLimit = countPage;
+        int blockLimit = 3;
+
+        int pageCount = boardRepository.boardCount();
+        int maxPage = (int) (Math.ceil((double)pageCount / pageLimit));
+        int startPage = (((int)(Math.ceil((double) page / blockLimit))) - 1) * blockLimit + 1;
+        int endPage = startPage + blockLimit - 1;
+        if(endPage > maxPage){
+            endPage = maxPage;
+        }
+        PageDTO pageDTO = new PageDTO();
+        pageDTO.setPage(page);
+        pageDTO.setStartPage(startPage);
+        pageDTO.setMaxPage(maxPage);
+        pageDTO.setEndPage(endPage);
+        return pageDTO;
+    }
     public PageDTO pageNumber(int page) {
         int pageLimit = 5;
         int blockLimit = 3;
@@ -78,7 +105,10 @@ public class BoardService {
         boardDTO.setFileAttached(0);
         boardRepository.save(boardDTO);
     }
+    //페이지 수 변경
 
+
+    //검색 결과 페이징
     public List<BoardDTO> searchList(String q, String type, int page) {
         Map<String, Object> searchParam = new HashMap<>();
         searchParam.put("q", q);
@@ -91,6 +121,8 @@ public class BoardService {
         searchParam.put("limit", pageLimit);
         return boardRepository.searchList(searchParam);
     }
+
+
 
     public PageDTO searchPageNumber(String q, String type, int page) {
         int pageLimit = 5;
@@ -136,4 +168,7 @@ public class BoardService {
     public void delete(Long id) {
         boardRepository.delete(id);
     }
+
+
+
 }
