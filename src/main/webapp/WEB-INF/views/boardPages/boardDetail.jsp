@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
     <h2>상세정보</h2>
@@ -53,8 +54,73 @@
             </tr>
             </c:if>
         </table>
+        <div>
+            <input type="text" id="comment-writer" value="${sessionScope.loginEmail}" placeholder="작성자"><br>
+            <textarea id="comment-contents" cols="30" rows="10"></textarea> <br>
+            <button onclick="comment_fn()">댓글 작성</button>
+        </div>
+        <div id="comment-list-area">
+            <c:choose>
+                <c:when test="${commentList == null}">
+                    <h3>작성된 댓글이 없습니다.</h3>
+                </c:when>
+                <c:otherwise>
+                    <table>
+                        <tr>
+                            <th>작성자</th>
+                            <th>내용</th>
+                            <th>작성시간</th>
+                        </tr>
+                        <c:forEach items="${commentList}" var="comment">
+                            <tr>
+                                <td>${comment.commentWriter}</td>
+                                <td>${comment.commentContents}</td>
+                                <td>${comment.createdAt}</td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </c:otherwise>
+            </c:choose>
+        </div>
 </body>
 <script>
+    const comment_fn = () =>{
+        const commentWriter = document.getElementById("comment-writer").value;
+        const commentContents= document.getElementById("comment-contents").value;
+        const boardId = '${board.id}';
+        const result = document.getElementById("comment-list-area");
+        $.ajax({
+            type:"post",
+            url: "/comment/save",
+            data :{
+                commentWriter : commentWriter,
+                commentContents : commentContents,
+                boardId : boardId
+            },
+            success : function (res){
+                let output = "<table id=\"comment-list\">\n" +
+                    "    <tr>\n" +
+                    "        <th>작성자</th>\n" +
+                    "        <th>내용</th>\n" +
+                    "        <th>작성시간</th>\n" +
+                    "    </tr>\n";
+                for (let i in res) {
+                    output += "    <tr>\n";
+                    output += "        <td>" + res[i].commentWriter + "</td>\n";
+                    output += "        <td>" + res[i].commentContents + "</td>\n";
+                    output += "        <td>" + res[i].createdAt + "</td>\n";
+                    output += "    </tr>\n";
+                }
+                output += "</table>";
+                result.innerHTML = output;
+                document.getElementById("comment-writer").value = "";
+                document.getElementById("comment-contents").value = "";
+            },
+            error : function (){
+                console.log("댓글 작성 실패");
+            }
+        });
+    }
     const update_fn = () =>{
         location.href = "/board/update?id=" + ${board.id};
     }
