@@ -4,13 +4,17 @@
 
 <mapper namespace="Comment">
     <insert id="save" parameterType="comment">
-        insert into comment_table (commentWriter, commentContents, boardId)
+        insert into newComment_table (commentWriter, commentContents, boardId)
         values (#{commentWriter}, #{commentContents}, #{boardId})
     </insert>
 
     <select id="findAll" parameterType="Long" resultType="comment">
         select id, commentWriter, commentContents,
                date_format(createdAt, "%y-%m-%d") as createdAt, boardId
-        from comment_table where boardId = #{boardId} order by id desc
+        from newComment_table where boardId = #{boardId} order by id desc
     </select>
+
+    <delete id="delete" parameterType="Long">
+        delete from newComment_table where id = #{id}
+    </delete>
 </mapper>
