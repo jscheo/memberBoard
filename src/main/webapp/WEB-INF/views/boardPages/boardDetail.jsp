@@ -82,6 +82,7 @@
                 </c:otherwise>
             </c:choose>
         </div>
+    </div>
 </body>
 <script>
     const comment_fn = () =>{

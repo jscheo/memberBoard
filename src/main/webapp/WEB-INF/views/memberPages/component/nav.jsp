@@ -16,8 +16,9 @@
         <a href="/member/admin">관리자 메뉴</a>
       </li>
     </c:if>
-
-
+    </li>
+    <li>
+      <button class="btn btn-warning" onclick="update_fn()">회원정보 수정</button>
     </li>
     <!--          <li class="menu-item">-->
     <!--              <a href="/login">로그인</a>-->
@@ -34,6 +35,12 @@
   </ul>
 </div>
 <script>
+  const update_fn = () =>{
+    const updateMember = '${sessionScope.loginEmail}';
+    location.href ="/member/update?memberEmail=" + updateMember;
+  }
+
+
   const loginArea = document.getElementById("login-area");
   const loginEmail = '${sessionScope.loginEmail}';
   console.log(loginEmail.length);

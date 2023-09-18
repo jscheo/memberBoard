@@ -36,4 +36,8 @@ public class MemberRepository {
     public void delete(Long id) {
         sql.delete("Member.delete", id);
     }
+
+    public void update(MemberDTO memberDTO) {
+        sql.update("Member.update", memberDTO);
+    }
 }

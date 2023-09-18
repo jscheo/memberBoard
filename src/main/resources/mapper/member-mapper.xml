@@ -28,4 +28,9 @@
     <delete id="delete" parameterType="Long">
         delete from newMember_table where id = #{id}
     </delete>
+
+    <update id="update" parameterType="member">
+        update newMember_table set memberName = #{memberName}, memberMobile = #{memberMobile}
+        where id = #{id}
+    </update>
 </mapper>

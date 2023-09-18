@@ -75,4 +75,17 @@ public class MemberController {
         memberService.delete(id);
         return "redirect:/member/admin";
     }
+
+    @GetMapping("/update")
+    public String update(@RequestParam("memberEmail") String memberEmail, Model model){
+        MemberDTO memberDTO= memberService.findByEmail(memberEmail);
+        model.addAttribute("member", memberDTO);
+        return "memberPages/memberUpdate";
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute MemberDTO memberDTO){
+        memberService.update(memberDTO);
+        return "/memberPages/memberMain";
+    }
 }
