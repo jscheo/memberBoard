@@ -2,8 +2,10 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
 </head>
 <body>
+<%@include file="component/header.jsp" %>
     <h2>글 수정</h2>
     <form action ="/board/update" method="post" >
         <input type="hidden" name="id" value="${board.id}">
@@ -12,5 +14,6 @@
         <textarea name="boardContents" cols="30" rows="10">${board.boardContents}</textarea> <br>
         <input type="submit" value="작성">
     </form>
+<%@include file="component/footer.jsp" %>
 </body>
 </html>

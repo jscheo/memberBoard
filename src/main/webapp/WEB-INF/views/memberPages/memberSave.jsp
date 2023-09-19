@@ -3,8 +3,10 @@
 <head>
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
 </head>
 <body>
+<%@include file="component/header.jsp" %>
     <h2>회원가입</h2>
     <form action="/member/save" method="post" enctype="multipart/form-data">
         <input type="text" name="memberEmail" id="emailCheck" onkeyup="email_check()" placeholder="이메일"><br>
@@ -16,6 +18,7 @@
         <input type="file" name="memberFile" multiple><br>
             <input type="submit"  value="가입">
     </form>
+<%@include file="component/footer.jsp" %>
 </body>
 <script>
     const pass_check=()=>{

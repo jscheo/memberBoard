@@ -2,8 +2,11 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
 </head>
 <body>
+<%@include file="component/header.jsp" %>
+
     <h2>회원 정보 수정</h2>
     <form name="updateForm" action="/member/update" method="post">
         <input type="hidden" name="id" value="${member.id}">
@@ -14,6 +17,7 @@
         <input type="button" onclick="pass_check()" value="수정">
     </form>
 </body>
+<%@include file="component/footer.jsp" %>
 <script>
     const pass_check= () =>{
         const inputPass = document.getElementById("pass-check").value;

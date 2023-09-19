@@ -18,6 +18,10 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
+    @GetMapping("/main")
+    public String main (){
+        return "/memberPages/memberMain";
+    }
     @GetMapping("/save")
     public String save(){
         return "memberPages/memberSave";
@@ -50,7 +54,7 @@ public class MemberController {
         if(memberDTO1 != null){
             session.setAttribute("loginEmail", memberDTO1.getMemberEmail());
             model.addAttribute("member", memberDTO1);
-            return "memberPages/memberMain";
+            return "redirect:/board/list";
         }else{
             return "memberPages/memberLogin";
         }

@@ -4,8 +4,12 @@
 <head>
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/css/main.css">
 </head>
 <body>
+<%@include file="component/header.jsp" %>
+<%@include file="component/nav.jsp"%>
 <h2>상세정보</h2>
 <div id="section">
     <table>
@@ -43,6 +47,7 @@
                 </td>
             </tr>
         </c:if>
+
         <c:if test="${board.boardWriter == sessionScope.loginEmail}">
             <tr>
                 <td>
@@ -52,6 +57,11 @@
                     <button class="btn btn-dark" onclick="delete_fn()">삭제</button>
                 </td>
             </tr>
+        </c:if>
+        <c:if test="${sessionScope.loginEmail == 'admin'}">
+            <td>
+                <button class="btn btn-dark" onclick="delete_fn()">삭제</button>
+            </td>
         </c:if>
     </table>
     <div>
@@ -80,6 +90,7 @@
                             <td>
                                 <button onclick="commentDelete_fn('${comment.id}')">삭제</button>
                             </td>
+
                         </tr>
                     </c:forEach>
                 </table>
@@ -87,6 +98,7 @@
         </c:choose>
     </div>
 </div>
+<%@include file="component/footer.jsp" %>
 </body>
 <script>
     const commentDelete_fn = (id) => {

@@ -4,11 +4,17 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/css/main.css">
 </head>
 <body>
+<%@include file="component/header.jsp" %>
+<%@include file="component/nav.jsp"%>
     <h2>글목록</h2>
     <a href="/board/save">글작성</a>
     <a href="/">Home</a>
+    <c:if test="${sessionScope.loginEmail != null}">
+    <a href="/member/main">마이페이지</a>
+    </c:if>
 <div id="section">
     <div class="container">
         <form action="/board/list" method="get">
@@ -92,5 +98,6 @@
         </ul>
     </div>
 </div>
+<%@include file="component/footer.jsp" %>
 </body>
 </html>
