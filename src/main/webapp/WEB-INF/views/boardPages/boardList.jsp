@@ -17,7 +17,7 @@
 
 <div id="section">
     <div class="container ms-5">
-        <form action="/board/list" method="get" class="me-2">
+        <form action="/board/list" method="get">
             <select name="type">
                 <option value="boardTitle">제목</option>
                 <option value="boardWriter">작성자</option>
@@ -25,13 +25,16 @@
             <input type="text" name="q" placeholder="검색어를 입력하세요" class="rounded">
             <input type="submit" value="검색">
         </form>
-        <form action="/board/list" method="get" class="ms-5">
+        <form action="/board/list" method="get">
+            <select>
+                <option value="paging">페이지</option>
+            </select>
             <input type="text" name="countPage" placeholder="페이지당 글목록 수 입력하세요" class="rounded">
             <input type="submit" value="입력">
         </form>
     </div>
     <div class="container" id="list">
-        <table class="table table-striped table-hover text-center table-dark">
+        <table class="table table-striped table-hover text-center">
             <tr>
                 <td>글번호</td>
                 <td>제목</td>

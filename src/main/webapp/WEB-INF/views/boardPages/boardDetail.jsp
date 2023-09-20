@@ -9,10 +9,11 @@
 </head>
 <body>
 <%@include file="component/header.jsp" %>
-<a href="/">Home</a>
-<h2>상세정보</h2>
+<a class="text-decoration-none" href="/">Home</a>
+<h2 class="text-center fw-semibold">상세정보</h2>
 <div id="section">
-    <table>
+    <div class="container mt-2">
+    <table class="table table-striped table-hover text-center">
         <tr>
             <th>id</th>
             <td>${board.id}</td>
@@ -65,10 +66,11 @@
         </c:when>
     </c:choose>
     </table>
-    <div >
-        <input type="text" id="comment-writer" value="${sessionScope.loginEmail}" placeholder="작성자" readonly><br>
-        <textarea id="comment-contents" cols="30" rows="10"></textarea> <br>
-        <button onclick="comment_fn()">댓글 작성</button>
+    </div>
+    <div class="text-center" >
+        <input type="text" id="comment-writer" value="${sessionScope.loginEmail}" placeholder="작성자" readonly class="rounded"><br>
+        <input type="text" id="comment-contents" class="rounded mt -3 my-2" placeholder="댓글을 입력하세요"><br>
+        <button class="btn btn-dark mb-3" onclick="comment_fn()">댓글 작성</button>
     </div>
     <div id="comment-list-area" >
         <c:choose>
@@ -76,7 +78,8 @@
                 <h3>작성된 댓글이 없습니다.</h3>
             </c:when>
             <c:otherwise>
-                <table id="comment-list">
+                <div class="container">
+                <table id="comment-list" class="table table-striped table-hover text-center" >
                     <tr>
                         <th>작성자</th>
                         <th>내용</th>
@@ -92,6 +95,7 @@
                         </tr>
                     </c:forEach>
                 </table>
+                </div>
             </c:otherwise>
         </c:choose>
     </div>
@@ -125,7 +129,8 @@
             },
             success: function (res) {
                 console.log("리턴값", res);
-                let output = "<table id=\"comment-list\">\n" +
+                let output = "<div class=\"container\">\n" +
+                    "<table id=\"comment-list\" class=\"table table-striped table-hover text-center\" >\n" +
                     "    <tr>\n" +
                     "        <th>작성자</th>\n" +
                     "        <th>내용</th>\n" +
@@ -141,6 +146,7 @@
                     output += "    </tr>\n";
                 }
                 output += "</table>";
+                output += "</div>";
                 result.innerHTML = output;
                 document.getElementById("comment-contents").value = "";
             },
