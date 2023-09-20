@@ -37,4 +37,8 @@
     <delete id="deleteMember" parameterType="String">
         delete from newMember_table where memberEmail = #{memberEmail}
     </delete>
+
+    <select id="loginCheck" parameterType="java.util.HashMap" resultType="member">
+        select * from newMember_table where memberEmail = #{memberEmail} and memberPassword = #{memberPassword}
+    </select>
 </mapper>

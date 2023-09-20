@@ -21,13 +21,13 @@ public class BoardService {
 
     // 글 저장 / 파일저장처리
     public void save(BoardDTO boardDTO) throws IOException {
-        if(boardDTO.getBoardFile().get(0).isEmpty()){
+        if (boardDTO.getBoardFile().get(0).isEmpty()) {
             boardDTO.setFileAttached(0);
             boardRepository.save(boardDTO);
-        }else{
+        } else {
             boardDTO.setFileAttached(1);
             BoardDTO saveBoard = boardRepository.save(boardDTO);
-            for(MultipartFile boardFile : boardDTO.getBoardFile()){
+            for (MultipartFile boardFile : boardDTO.getBoardFile()) {
                 String originalFileName = boardFile.getOriginalFilename();
                 String storedFileName = System.currentTimeMillis() + "-" + originalFileName;
 
@@ -42,17 +42,18 @@ public class BoardService {
             }
         }
     }
-    //수정
+
+    //수정(파일까지)
     public void update(BoardDTO boardDTO) throws IOException {
-        if(boardDTO.getBoardFile() == null){
+        if (boardDTO.getBoardFile() == null) {
             boardRepository.update(boardDTO);
-        }else{
+        } else {
             BoardFileDTO boardFileDTO = boardRepository.findByFile(boardDTO.getId());
-            if(boardFileDTO != null){
+            if (boardFileDTO != null) {
                 boardRepository.fileDelete(boardFileDTO.getId());
                 boardRepository.update(boardDTO);
                 BoardDTO boardDTO1 = boardRepository.findById(boardDTO.getId());
-                for(MultipartFile boardFile : boardDTO.getBoardFile()){
+                for (MultipartFile boardFile : boardDTO.getBoardFile()) {
                     BoardFileDTO boardFileDTO1 = new BoardFileDTO();
                     String originalFileName = boardFile.getOriginalFilename();
                     String storedFileName = System.currentTimeMillis() + "-" + originalFileName;
@@ -66,43 +67,45 @@ public class BoardService {
                 }
 
             }
-
         }
-
     }
+
     // 글 목록
     public List<BoardDTO> findAll() {
         return boardRepository.findAll();
     }
+
     //페이지에 출력될 수 설정 후 페이지당 보여지는 갯수 설정
-    public List<BoardDTO> countList(int page,int countPage) {
+    public List<BoardDTO> countList(int page, int countPage) {
         Map<String, Integer> countParam = new HashMap<>();
 
         int pageLimit = countPage;
-        int pagingStart = (page -1 ) * pageLimit;
+        int pagingStart = (page - 1) * pageLimit;
         countParam.put("start", pagingStart);
         countParam.put("limit", pageLimit);
         return boardRepository.countList(countParam);
     }
+
     // 조건 없을 때 한페이지에 출력될 목록 수
     public List<BoardDTO> pagingList(int page) {
         int pageLimit = 5;
-        int pagingStart = (page -1) * pageLimit;
+        int pagingStart = (page - 1) * pageLimit;
         Map<String, Integer> pagingParam = new HashMap<>();
         pagingParam.put("start", pagingStart);
         pagingParam.put("limit", pageLimit);
         return boardRepository.pagingList(pagingParam);
     }
+
     // 페이지조건 설정 후 시작/끝 페이지 값 설정
     public PageDTO countNumber(int page, int countPage) {
         int pageLimit = countPage;
         int blockLimit = 3;
 
         int pageCount = boardRepository.boardCount();
-        int maxPage = (int) (Math.ceil((double)pageCount / pageLimit));
-        int startPage = (((int)(Math.ceil((double) page / blockLimit))) - 1) * blockLimit + 1;
+        int maxPage = (int) (Math.ceil((double) pageCount / pageLimit));
+        int startPage = (((int) (Math.ceil((double) page / blockLimit))) - 1) * blockLimit + 1;
         int endPage = startPage + blockLimit - 1;
-        if(endPage > maxPage){
+        if (endPage > maxPage) {
             endPage = maxPage;
         }
         PageDTO pageDTO = new PageDTO();
@@ -112,15 +115,16 @@ public class BoardService {
         pageDTO.setEndPage(endPage);
         return pageDTO;
     }
+
     // 조건 없을 때 시작/끝 페이지 값 설정
     public PageDTO pageNumber(int page) {
         int pageLimit = 5;
         int blockLimit = 3;
         int boardCount = boardRepository.boardCount();
-        int maxPage = (int) (Math.ceil((double)boardCount / pageLimit));
-        int startPage = (((int)(Math.ceil((double) page / blockLimit))) - 1) * blockLimit + 1;
+        int maxPage = (int) (Math.ceil((double) boardCount / pageLimit));
+        int startPage = (((int) (Math.ceil((double) page / blockLimit))) - 1) * blockLimit + 1;
         int endPage = startPage + blockLimit - 1;
-        if(endPage > maxPage){
+        if (endPage > maxPage) {
             endPage = maxPage;
         }
         PageDTO pageDTO = new PageDTO();
@@ -130,6 +134,7 @@ public class BoardService {
         pageDTO.setEndPage(endPage);
         return pageDTO;
     }
+
     //샘플 데이터
     public void sampleData(BoardDTO boardDTO) {
         boardDTO.setFileAttached(0);
@@ -144,7 +149,7 @@ public class BoardService {
 
 
         int pageLimit = 5;
-        int pagingStart = (page -1) * pageLimit;
+        int pagingStart = (page - 1) * pageLimit;
         searchParam.put("start", pagingStart);
         searchParam.put("limit", pageLimit);
         return boardRepository.searchList(searchParam);
@@ -158,11 +163,11 @@ public class BoardService {
         pagingParam.put("q", q);
         pagingParam.put("type", type);
         int boardCount = boardRepository.boardSearchCount(pagingParam);
-        int maxPage = (int) (Math.ceil((double)boardCount / pageLimit));
-        int startPage = (((int)(Math.ceil((double) page / blockLimit))) - 1) * blockLimit + 1;
+        int maxPage = (int) (Math.ceil((double) boardCount / pageLimit));
+        int startPage = (((int) (Math.ceil((double) page / blockLimit))) - 1) * blockLimit + 1;
         int endPage = startPage + blockLimit - 1;
-        if(endPage > maxPage){
-           endPage = maxPage;
+        if (endPage > maxPage) {
+            endPage = maxPage;
         }
         PageDTO pageDTO = new PageDTO();
         pageDTO.setPage(page);
@@ -171,18 +176,22 @@ public class BoardService {
         pageDTO.setStartPage(startPage);
         return pageDTO;
     }
+
     //조회수 증가
     public void updateHits(Long id) {
         boardRepository.updateHits(id);
     }
+
     //id값으로 조회
     public BoardDTO findById(Long id) {
         return boardRepository.findById(id);
     }
+
     //파일 불러오기
     public List<BoardFileDTO> findFile(Long id) {
         return boardRepository.findFile(id);
     }
+
     // 수정 시 기존 값 불러오기
     public BoardDTO updateForm(Long id) {
         return boardRepository.updateForm(id);
@@ -192,7 +201,6 @@ public class BoardService {
     public void delete(Long id) {
         boardRepository.delete(id);
     }
-
 
 
 }

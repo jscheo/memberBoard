@@ -9,12 +9,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MemberService {
     @Autowired
     private MemberRepository memberRepository;
+
     // 회원가입/ 프로필 사진 저장 처리
     public void save(MemberDTO memberDTO) throws IOException {
         if (memberDTO.getMemberFile() == null) {
@@ -36,6 +39,7 @@ public class MemberService {
         }
 
     }
+
     // 이메일 중목체크
     public MemberDTO findByEmail(String memberEmail) {
         return memberRepository.findByEmail(memberEmail);
@@ -50,17 +54,27 @@ public class MemberService {
     public List<MemberDTO> findAll() {
         return memberRepository.findAll();
     }
+
     // 회원삭제
     public void delete(Long id) {
         memberRepository.delete(id);
     }
+
     //수정
     public void update(MemberDTO memberDTO) {
         memberRepository.update(memberDTO);
     }
+
     //회원탈퇴
     public void deleteMember(String memberEmail) {
         memberRepository.deleteMember(memberEmail);
+    }
+
+    public MemberDTO loginCheck(String memberEmail, String memberPassword) {
+        Map<String, String> checkParam = new HashMap<>();
+        checkParam.put("memberEmail", memberEmail);
+        checkParam.put("memberPassword", memberPassword);
+        return memberRepository.loginCheck(checkParam);
     }
 }
 

@@ -11,9 +11,6 @@
     <li class="menu-item">
       <a href="/member/save">회원가입</a>
     </li>
-    <%--    <li class="menu-item">--%>
-    <%--    <a href='/member/login'>로그인</a>--%>
-    <%--    </li>--%>
     <li class="menu-item">
       <a href="/board/list">글목록</a>
     </li>

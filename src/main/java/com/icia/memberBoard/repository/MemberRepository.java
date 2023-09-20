@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class MemberRepository {
@@ -45,5 +46,9 @@ public class MemberRepository {
 
     public void deleteMember(String memberEmail) {
         sql.delete("Member.deleteMember", memberEmail);
+    }
+
+    public MemberDTO loginCheck(Map<String, String> checkParam) {
+        return sql.selectOne("Member.loginCheck", checkParam);
     }
 }

@@ -62,6 +62,15 @@ public class MemberController {
         }
 
     }
+    @GetMapping("/loginCheck")
+    public @ResponseBody String loginCheck(@RequestParam("memberEmail") String memberEmail,
+                             @RequestParam("memberPassword") String memberPassword){
+        MemberDTO memberDTO = memberService.loginCheck(memberEmail, memberPassword);
+        if(memberDTO != null){
+            return "yes";
+        }
+        return "no";
+    }
     //로그아웃
     @GetMapping("/logout")
     public String logout(HttpSession session){

@@ -76,11 +76,11 @@ public class BoardRepository {
         sql.delete("Board.delete", id);
     }
 
-
+    //파일dto 값 찾아오기
     public BoardFileDTO findByFile(Long boardId) {
         return sql.selectOne("Board.findByFile", boardId);
     }
-
+    //파일 dto 삭제처리
     public void fileDelete(Long id) {
         sql.delete("Board.fileDelete", id);
     }
