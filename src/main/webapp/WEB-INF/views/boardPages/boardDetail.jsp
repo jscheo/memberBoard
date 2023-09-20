@@ -9,7 +9,7 @@
 </head>
 <body>
 <%@include file="component/header.jsp" %>
-<%@include file="component/nav.jsp"%>
+<a href="/">Home</a>
 <h2>상세정보</h2>
 <div id="section">
     <table>
@@ -100,7 +100,7 @@
 </body>
 <script>
     const commentDelete_fn = (commentId,boardId) => {
-        if(confirm("삭제하실?")){
+        if(confirm("삭제하시겠습니까?")){
             const comment = commentId;
             const board = boardId;
             location.href = "/comment/delete?commentId="+comment+"&boardId="+board ;

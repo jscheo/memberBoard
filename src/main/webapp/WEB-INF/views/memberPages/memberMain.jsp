@@ -27,9 +27,19 @@
     </li>
     </c:if>
     <li>
-        <a class="text-decoration-none" href="/member/memberDelete?memberEmail=${sessionScope.loginEmail}">회원 탈퇴</a>
+        <input type="button" onclick="memberDelete_fn()" value="회원 탈퇴">
     </li>
 </ul>
 <%@include file="component/footer.jsp" %>
 </body>
+<script>
+    memberDelete_fn = () =>{
+        if(confirm("탈퇴하시겠습니까?")){
+            const memberEmail = '${sessionScope.loginEmail}';
+            location.href ="/member/memberDelete?memberEmail=" + memberEmail;
+        }else{
+            alert("취소 되었습니다.")
+        }
+    }
+</script>
 </html>

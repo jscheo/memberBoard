@@ -42,6 +42,34 @@ public class BoardService {
             }
         }
     }
+    //수정
+    public void update(BoardDTO boardDTO) throws IOException {
+        if(boardDTO.getBoardFile() == null){
+            boardRepository.update(boardDTO);
+        }else{
+            BoardFileDTO boardFileDTO = boardRepository.findByFile(boardDTO.getId());
+            if(boardFileDTO != null){
+                boardRepository.fileDelete(boardFileDTO.getId());
+                boardRepository.update(boardDTO);
+                BoardDTO boardDTO1 = boardRepository.findById(boardDTO.getId());
+                for(MultipartFile boardFile : boardDTO.getBoardFile()){
+                    BoardFileDTO boardFileDTO1 = new BoardFileDTO();
+                    String originalFileName = boardFile.getOriginalFilename();
+                    String storedFileName = System.currentTimeMillis() + "-" + originalFileName;
+                    boardFileDTO1.setOriginalFileName(originalFileName);
+                    boardFileDTO1.setStoredFileName(storedFileName);
+                    boardFileDTO1.setBoardId(boardDTO1.getId());
+
+                    String savePath = "C:\\board_img\\" + storedFileName;
+                    boardFile.transferTo(new File(savePath));
+                    boardRepository.saveFile(boardFileDTO1);
+                }
+
+            }
+
+        }
+
+    }
     // 글 목록
     public List<BoardDTO> findAll() {
         return boardRepository.findAll();
@@ -159,10 +187,7 @@ public class BoardService {
     public BoardDTO updateForm(Long id) {
         return boardRepository.updateForm(id);
     }
-    //수정
-    public void update(BoardDTO boardDTO) {
-        boardRepository.update(boardDTO);
-    }
+
     //삭제
     public void delete(Long id) {
         boardRepository.delete(id);

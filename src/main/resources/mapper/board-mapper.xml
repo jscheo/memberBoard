@@ -67,4 +67,12 @@
     <delete id="delete" parameterType="Long">
         delete from newBoard_table where id = #{id}
     </delete>
+
+    <select id="findByFile" parameterType="Long" resultType="boardFile">
+        select * from newBoard_file_table where boardId = #{boardId}
+    </select>
+
+    <delete id="fileDelete" parameterType="Long">
+        delete from newBoard_file_table where id =#{id}
+    </delete>
 </mapper>

@@ -68,8 +68,8 @@ public class BoardRepository {
         return sql.selectOne("Board.updateForm", id);
     }
     //수정처리
-    public void update(BoardDTO boardDTO) {
-        sql.update("Board.update", boardDTO);
+    public Integer update(BoardDTO boardDTO) {
+        return sql.update("Board.update", boardDTO);
     }
     //삭제처리
     public void delete(Long id) {
@@ -77,5 +77,12 @@ public class BoardRepository {
     }
 
 
+    public BoardFileDTO findByFile(Long boardId) {
+        return sql.selectOne("Board.findByFile", boardId);
+    }
+
+    public void fileDelete(Long id) {
+        sql.delete("Board.fileDelete", id);
+    }
 
 }

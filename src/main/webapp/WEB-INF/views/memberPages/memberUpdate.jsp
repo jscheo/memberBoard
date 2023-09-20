@@ -13,7 +13,7 @@
     <form name="updateForm" action="/member/update" method="post" class="text-center">
         <input type="hidden" name="id" value="${member.id}" class="rounded">
         <input type="text" name="memberEmail" value="${member.memberEmail}" readonly class="rounded"><br>
-        <input type="text" name="memberPassword" id="pass-check" class="rounded"><br>
+        <input type="text" name="memberPassword" id="pass-check" class="rounded" placeholder="비밀번호 입력하세요"><br>
         <input type="text" name="memberName" value="${member.memberName}" class="rounded"><br>
         <input type="text" name="memberMobile" value="${member.memberMobile}" class="rounded"><br>
         <input class="rounded mt-2" type="button" onclick="pass_check()" value="수정">

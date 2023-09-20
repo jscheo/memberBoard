@@ -52,7 +52,6 @@ public class MemberController {
     @PostMapping("/login")
     public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session, Model model){
         MemberDTO memberDTO1 = memberService.login(memberDTO);
-        System.out.println("memberDTO1 = " + memberDTO1);
         if(memberDTO1 != null){
             session.setAttribute("loginEmail", memberDTO1.getMemberEmail());
             session.setAttribute("loginId", memberDTO1.getId());
@@ -98,9 +97,8 @@ public class MemberController {
     }
     //회원탈퇴
     @GetMapping("/memberDelete")
-    public String memberDelete(HttpSession session){
-        Object memberEmail = session.getAttribute("loginEmail");
-        memberService.deleteMember((String) memberEmail);
+    public String memberDelete(@RequestParam("memberEmail") String memberEmail, HttpSession session){
+        memberService.deleteMember(memberEmail);
         session.removeAttribute("loginEmail");
         return "index";
     }
