@@ -100,6 +100,7 @@ public class MemberController {
     public String memberDelete(HttpSession session){
         Object memberEmail = session.getAttribute("loginEmail");
         memberService.deleteMember((String) memberEmail);
+        session.removeAttribute("loginEmail");
         return "index";
     }
 }
