@@ -41,4 +41,8 @@
     <select id="loginCheck" parameterType="java.util.HashMap" resultType="member">
         select * from newMember_table where memberEmail = #{memberEmail} and memberPassword = #{memberPassword}
     </select>
+
+    <select id="findFile" parameterType="Long" resultType="member">
+        select * from member_file_table where memberId = #{memberId}
+    </select>
 </mapper>

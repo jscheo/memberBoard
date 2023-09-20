@@ -26,16 +26,19 @@ public class MemberService {
         } else {
             memberDTO.setMemberProfile(1);
             MemberDTO saveMember = memberRepository.save(memberDTO);
-            MultipartFile memberFile = memberDTO.getMemberFile();
-            String originalFileName = memberFile.getOriginalFilename();
-            String storedFileName = System.currentTimeMillis() + "-" + originalFileName;
-            MemberFileDTO memberFileDTO = new MemberFileDTO();
-            memberFileDTO.setOriginalFileName(originalFileName);
-            memberFileDTO.setStoredFileName(storedFileName);
-            memberFileDTO.setMemberId(saveMember.getId());
-            String savePath = "C:\\member_img\\" + storedFileName;
-            memberFile.transferTo(new File(savePath));
-            memberRepository.saveFile(memberFileDTO);
+            for(MultipartFile memberFile : memberDTO.getMemberFile()) {
+                String originalFileName = memberFile.getOriginalFilename();
+                String storedFileName = System.currentTimeMillis() + "-" + originalFileName;
+
+                MemberFileDTO memberFileDTO = new MemberFileDTO();
+                memberFileDTO.setOriginalFileName(originalFileName);
+                memberFileDTO.setStoredFileName(storedFileName);
+                memberFileDTO.setMemberId(saveMember.getId());
+
+                String savePath = "C:\\member_img\\" + storedFileName;
+                memberFile.transferTo(new File(savePath));
+                memberRepository.saveFile(memberFileDTO);
+            }
         }
 
     }
@@ -75,6 +78,11 @@ public class MemberService {
         checkParam.put("memberEmail", memberEmail);
         checkParam.put("memberPassword", memberPassword);
         return memberRepository.loginCheck(checkParam);
+    }
+
+
+    public List<MemberDTO> findFile(Long id) {
+        return memberRepository.findFile(id);
     }
 }
 

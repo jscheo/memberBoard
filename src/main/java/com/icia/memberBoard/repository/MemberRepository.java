@@ -5,6 +5,7 @@ import com.icia.memberBoard.dto.MemberFileDTO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -50,5 +51,10 @@ public class MemberRepository {
 
     public MemberDTO loginCheck(Map<String, String> checkParam) {
         return sql.selectOne("Member.loginCheck", checkParam);
+    }
+
+
+    public List<MemberDTO> findFile(Long memberId) {
+        return sql.selectList("Member.findFile", memberId);
     }
 }

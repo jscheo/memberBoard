@@ -16,7 +16,7 @@
     </li>
     <c:if test="${sessionScope.loginEmail != null}">
       <li class="menu-item">
-        <a href="/memberPages/memberMain">마이페이지</a>
+        <a href="/member/main">마이페이지</a>
       </li>
     </c:if>
     <li class="menu-item" id="login-area">
@@ -30,7 +30,7 @@
   console.log(loginEmail.length);
   if(loginEmail.length != 0){
     //로그인 했음
-    loginArea.innerHTML = "<a href ='/memberPages/memberMain'>" + loginEmail + "님 환영해요!</a>" +
+    loginArea.innerHTML = "<a href ='/member/main'>" + loginEmail + "님 환영해요!</a>" +
             "<a href='/member/logout'>logout</a>";
 
   }else{

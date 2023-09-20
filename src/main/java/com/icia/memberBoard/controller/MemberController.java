@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -19,7 +20,15 @@ public class MemberController {
     private MemberService memberService;
     //마이페이지 이동
     @GetMapping("/main")
-    public String main (){
+    public String main (HttpSession session, Model model){
+        String memberEmail = String.valueOf(session.getAttribute("loginEmail"));
+        MemberDTO memberDTO = memberService.findByEmail(memberEmail);
+        System.out.println("memberDTO = " + memberDTO);
+        if(memberDTO.getMemberProfile() == 1){
+            List<MemberDTO> memberFile = memberService.findFile(memberDTO.getId());
+            model.addAttribute("memberFile", memberFile);
+            System.out.println("memberFile = " + memberFile);
+        }
         return "/memberPages/memberMain";
     }
     //회원가입
