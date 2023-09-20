@@ -13,9 +13,6 @@
 
 <a href="/" class="text-decoration-none">Home</a>
 <a href="/board/save" class="text-decoration-none">글작성</a>
-<c:if test="${sessionScope.loginEmail != null}">
-    <a class="text-decoration-none" href="/member/main">마이페이지</a>
-</c:if>
 <h2 class="text-center fw-semibold">글목록</h2>
 
 <div id="section">
