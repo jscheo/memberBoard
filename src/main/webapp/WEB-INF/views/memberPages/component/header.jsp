@@ -5,6 +5,6 @@
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
 </head>
 <body>
-    <h3 class="text-center fw-semibold">준상이 홈피</h3>
+    <h3 class="text-center fw-semibold">Spring Frame Work Board</h3>
 </body>
 </html>

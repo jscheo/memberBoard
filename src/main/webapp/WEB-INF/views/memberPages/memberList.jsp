@@ -9,9 +9,9 @@
 </head>
 <body>
 <%@include file="component/header.jsp" %>
-<h3>회원 목록</h3>
+<h3 class="text-center">회원 목록</h3>
 <a href="/">Home</a>
-<table>
+<table class="text-center">
     <tr>
         <td>이메일</td>
         <td>비밀번호</td>
@@ -25,7 +25,7 @@
             <td>${member.memberName}</td>
             <td>${member.memberMobile}</td>
             <td>
-                <button class="btn btn-warning"><a href="/member/delete?id=${member.id}">삭제</a></button>
+                <button class="btn btn-dark"><a class="text-decoration-none" href="/member/delete?id=${member.id}">삭제</a></button>
             </td>
         </tr>
     </c:forEach>

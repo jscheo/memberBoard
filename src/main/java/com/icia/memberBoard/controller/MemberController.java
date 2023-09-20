@@ -84,8 +84,9 @@ public class MemberController {
     }
     //수정
     @GetMapping("/update")
-    public String update(@RequestParam("memberEmail") String memberEmail, Model model){
-        MemberDTO memberDTO= memberService.findByEmail(memberEmail);
+    public String update(HttpSession session ,Model model){
+        String memberEmail = String.valueOf(session.getAttribute("loginEmail"));
+        MemberDTO memberDTO = memberService.findByEmail(memberEmail);
         model.addAttribute("member", memberDTO);
         return "memberPages/memberUpdate";
     }

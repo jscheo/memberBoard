@@ -19,17 +19,17 @@
 <h2 class="text-center fw-semibold">글목록</h2>
 
 <div id="section">
-    <div class="container text-end me-4">
-        <form action="/board/list" method="get">
+    <div class="container ms-5">
+        <form action="/board/list" method="get" class="me-2">
             <select name="type">
                 <option value="boardTitle">제목</option>
                 <option value="boardWriter">작성자</option>
             </select>
-            <input type="text" name="q" placeholder="검색어를 입력하세요">
+            <input type="text" name="q" placeholder="검색어를 입력하세요" class="rounded">
             <input type="submit" value="검색">
         </form>
-        <form action="/board/list" method="get">
-            <input type="text" name="countPage" placeholder="페이지당 글목록 수 입력하세요">
+        <form action="/board/list" method="get" class="ms-5">
+            <input type="text" name="countPage" placeholder="페이지당 글목록 수 입력하세요" class="rounded">
             <input type="submit" value="입력">
         </form>
     </div>
