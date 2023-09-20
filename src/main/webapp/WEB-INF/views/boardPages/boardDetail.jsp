@@ -47,8 +47,8 @@
                 </td>
             </tr>
         </c:if>
-
-        <c:if test="${board.boardWriter == sessionScope.loginEmail}">
+    <c:choose>
+        <c:when test="${board.boardWriter == sessionScope.loginEmail}">
             <tr>
                 <td>
                     <button class="btn btn-dark" onclick="update_fn()">수정</button>
@@ -57,12 +57,13 @@
                     <button class="btn btn-dark" onclick="delete_fn()">삭제</button>
                 </td>
             </tr>
-        </c:if>
-        <c:if test="${sessionScope.loginEmail == 'admin'}">
+        </c:when>
+        <c:when test="${sessionScope.loginEmail == 'admin'}">
             <td>
                 <button class="btn btn-dark" onclick="delete_fn()">삭제</button>
             </td>
-        </c:if>
+        </c:when>
+    </c:choose>
     </table>
     <div >
         <input type="text" id="comment-writer" value="${sessionScope.loginEmail}" placeholder="작성자" readonly><br>
@@ -100,11 +101,13 @@
 <script>
     const commentDelete_fn = (commentId,boardId) => {
         if(confirm("삭제하실?")){
-
+            const comment = commentId;
+            const board = boardId;
+            location.href = "/comment/delete?commentId="+comment+"&boardId="+board ;
+        }else{
+            alert("취소되었습니다.")
         }
-        const comment = commentId;
-        const board = boardId;
-        location.href = "/comment/delete?commentId="+comment+"&boardId="+board ;
+
     }
 
     const comment_fn = () => {

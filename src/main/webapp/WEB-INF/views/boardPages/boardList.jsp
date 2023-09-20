@@ -34,7 +34,7 @@
         </form>
     </div>
     <div class="container" id="list">
-        <table class="table table-striped table-hover text-center">
+        <table class="table table-striped table-hover text-center table-dark">
             <tr>
                 <td>글번호</td>
                 <td>제목</td>
@@ -82,7 +82,7 @@
                     </c:when>
                     <c:otherwise>
                         <li>
-                            <a class="page-link" href="/board/list?page=${i}&q=${q}&type=${type}">${i}</a>
+                            <a class="page-link text-dark" href="/board/list?page=${i}&q=${q}&type=${type}">${i}</a>
                         </li>
                     </c:otherwise>
                 </c:choose>
