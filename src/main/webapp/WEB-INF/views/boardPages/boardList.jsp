@@ -5,18 +5,21 @@
     <title>Title</title>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/css/main.css">
+
 </head>
 <body>
 <%@include file="component/header.jsp" %>
-<%@include file="component/nav.jsp"%>
-    <h2>글목록</h2>
-    <a href="/board/save">글작성</a>
-    <a href="/">Home</a>
-    <c:if test="${sessionScope.loginEmail != null}">
-    <a href="/member/main">마이페이지</a>
-    </c:if>
+<%@include file="component/nav.jsp" %>
+
+<a href="/" class="text-decoration-none">Home</a>
+<a href="/board/save" class="text-decoration-none">글작성</a>
+<c:if test="${sessionScope.loginEmail != null}">
+    <a class="text-decoration-none" href="/member/main">마이페이지</a>
+</c:if>
+<h2 class="text-center fw-semibold">글목록</h2>
+
 <div id="section">
-    <div class="container">
+    <div class="container text-end me-4">
         <form action="/board/list" method="get">
             <select name="type">
                 <option value="boardTitle">제목</option>
@@ -26,7 +29,7 @@
             <input type="submit" value="검색">
         </form>
         <form action="/board/list" method="get">
-            <input type="text" name="countPage" placeholder="출력할 페이지 수 입력하세요">
+            <input type="text" name="countPage" placeholder="페이지당 글목록 수 입력하세요">
             <input type="submit" value="입력">
         </form>
     </div>
@@ -43,7 +46,9 @@
             <c:forEach items="${boardList}" var="board">
                 <tr>
                     <td>${board.id}</td>
-                    <td><a href="/board/detail?id=${board.id}&page=${paging.page}&q=${q}&type=${type}">${board.boardTitle}</a></td>
+                    <td>
+                        <a href="/board/detail?id=${board.id}&page=${paging.page}&q=${q}&type=${type}" class="text-decoration-none">${board.boardTitle}</a>
+                    </td>
                     <td>${board.boardWriter}</td>
                     <td>${board.boardContents}</td>
                     <td>${board.boardHits}</td>
@@ -63,7 +68,7 @@
                 </c:when>
                 <c:otherwise>
                     <li class="page-item">
-                        <a class="page-link" href="/board/list?page?=${paging.page-1}&q=${q}&type=${type}">[이전]</a>
+                        <a class="page-link" href="/board/list?page=${paging.page-1}&q=${q}&type=${type}">[이전]</a>
                     </li>
                 </c:otherwise>
             </c:choose>
@@ -91,7 +96,7 @@
                 </c:when>
                 <c:otherwise>
                     <li class="page-item">
-                        <a href="/board/list?page=${paging.page + 1}&q=${q}&type=${type}">[다음]</a>
+                        <a class="page-link" href="/board/list?page=${paging.page + 1}&q=${q}&type=${type}">[다음]</a>
                     </li>
                 </c:otherwise>
             </c:choose>

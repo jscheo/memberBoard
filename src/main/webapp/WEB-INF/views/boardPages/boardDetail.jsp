@@ -5,7 +5,7 @@
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/resources/css/main.css">
+
 </head>
 <body>
 <%@include file="component/header.jsp" %>
@@ -64,12 +64,12 @@
             </td>
         </c:if>
     </table>
-    <div>
-        <input type="text" id="comment-writer" value="${sessionScope.loginEmail}" placeholder="작성자"><br>
+    <div >
+        <input type="text" id="comment-writer" value="${sessionScope.loginEmail}" placeholder="작성자" readonly><br>
         <textarea id="comment-contents" cols="30" rows="10"></textarea> <br>
         <button onclick="comment_fn()">댓글 작성</button>
     </div>
-    <div id="comment-list-area">
+    <div id="comment-list-area" >
         <c:choose>
             <c:when test="${commentList == null}">
                 <h3>작성된 댓글이 없습니다.</h3>
@@ -77,20 +77,17 @@
             <c:otherwise>
                 <table id="comment-list">
                     <tr>
-                        <td>작성자</td>
-                        <td>내용</td>
-                        <td>작성시간</td>
-                        <td>삭제</td>
+                        <th>작성자</th>
+                        <th>내용</th>
+                        <th>작성시간</th>
+                        <th>삭제</th>
                     </tr>
                     <c:forEach items="${commentList}" var="comment">
                         <tr>
                             <td>${comment.commentWriter}</td>
                             <td>${comment.commentContents}</td>
                             <td>${comment.createdAt}</td>
-                            <td>
-                                <button onclick="commentDelete_fn('${comment.id}')">삭제</button>
-                            </td>
-
+                            <td><input type="button" onclick="commentDelete_fn(${comment.id},${board.id})" value="삭제"></td>
                         </tr>
                     </c:forEach>
                 </table>
@@ -101,8 +98,13 @@
 <%@include file="component/footer.jsp" %>
 </body>
 <script>
-    const commentDelete_fn = (id) => {
-        location.href="/comment/delete?id=" +id;
+    const commentDelete_fn = (commentId,boardId) => {
+        if(confirm("삭제하실?")){
+
+        }
+        const comment = commentId;
+        const board = boardId;
+        location.href = "/comment/delete?commentId="+comment+"&boardId="+board ;
     }
 
     const comment_fn = () => {
@@ -132,12 +134,11 @@
                     output += "        <td>" + res[i].commentWriter + "</td>\n";
                     output += "        <td>" + res[i].commentContents + "</td>\n";
                     output += "        <td>" + res[i].createdAt + "</td>\n";
-                    output += "        <td><button onclick='commentDelete_fn()'>" + 삭제 + "</button></td>\n";
+                    output += "<td><input type=\"button\" onclick=\"commentDelete_fn("+res[i].id+",${board.id})\" value=\"삭제\"></td>";
                     output += "    </tr>\n";
                 }
                 output += "</table>";
                 result.innerHTML = output;
-                document.getElementById("comment-writer").value = "";
                 document.getElementById("comment-contents").value = "";
             },
             error: function () {

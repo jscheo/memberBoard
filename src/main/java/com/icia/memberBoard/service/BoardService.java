@@ -19,7 +19,7 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
-
+    // 글 저장 / 파일저장처리
     public void save(BoardDTO boardDTO) throws IOException {
         if(boardDTO.getBoardFile().get(0).isEmpty()){
             boardDTO.setFileAttached(0);
@@ -42,10 +42,11 @@ public class BoardService {
             }
         }
     }
-
+    // 글 목록
     public List<BoardDTO> findAll() {
         return boardRepository.findAll();
     }
+    //페이지에 출력될 수 설정 후 페이지당 보여지는 갯수 설정
     public List<BoardDTO> countList(int page,int countPage) {
         Map<String, Integer> countParam = new HashMap<>();
 
@@ -55,7 +56,7 @@ public class BoardService {
         countParam.put("limit", pageLimit);
         return boardRepository.countList(countParam);
     }
-
+    // 조건 없을 때 한페이지에 출력될 목록 수
     public List<BoardDTO> pagingList(int page) {
         int pageLimit = 5;
         int pagingStart = (page -1) * pageLimit;
@@ -64,7 +65,7 @@ public class BoardService {
         pagingParam.put("limit", pageLimit);
         return boardRepository.pagingList(pagingParam);
     }
-
+    // 페이지조건 설정 후 시작/끝 페이지 값 설정
     public PageDTO countNumber(int page, int countPage) {
         int pageLimit = countPage;
         int blockLimit = 3;
@@ -83,6 +84,7 @@ public class BoardService {
         pageDTO.setEndPage(endPage);
         return pageDTO;
     }
+    // 조건 없을 때 시작/끝 페이지 값 설정
     public PageDTO pageNumber(int page) {
         int pageLimit = 5;
         int blockLimit = 3;
@@ -100,15 +102,13 @@ public class BoardService {
         pageDTO.setEndPage(endPage);
         return pageDTO;
     }
-
+    //샘플 데이터
     public void sampleData(BoardDTO boardDTO) {
         boardDTO.setFileAttached(0);
         boardRepository.save(boardDTO);
     }
-    //페이지 수 변경
 
-
-    //검색 결과 페이징
+    //검색 갑에 따라 한페이지당 출력될 갯수 설정
     public List<BoardDTO> searchList(String q, String type, int page) {
         Map<String, Object> searchParam = new HashMap<>();
         searchParam.put("q", q);
@@ -122,8 +122,7 @@ public class BoardService {
         return boardRepository.searchList(searchParam);
     }
 
-
-
+    //검색 값에 따라 시작/끝 페이지 설정
     public PageDTO searchPageNumber(String q, String type, int page) {
         int pageLimit = 5;
         int blockLimit = 3;
@@ -144,27 +143,27 @@ public class BoardService {
         pageDTO.setStartPage(startPage);
         return pageDTO;
     }
-
+    //조회수 증가
     public void updateHits(Long id) {
         boardRepository.updateHits(id);
     }
-
+    //id값으로 조회
     public BoardDTO findById(Long id) {
         return boardRepository.findById(id);
     }
-
+    //파일 불러오기
     public List<BoardFileDTO> findFile(Long id) {
         return boardRepository.findFile(id);
     }
-
+    // 수정 시 기존 값 불러오기
     public BoardDTO updateForm(Long id) {
         return boardRepository.updateForm(id);
     }
-
+    //수정
     public void update(BoardDTO boardDTO) {
         boardRepository.update(boardDTO);
     }
-
+    //삭제
     public void delete(Long id) {
         boardRepository.delete(id);
     }

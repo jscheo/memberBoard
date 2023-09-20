@@ -5,10 +5,11 @@
     <title>Title</title>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/css/main.css">
+
 </head>
 <body>
 <%@include file="component/header.jsp" %>
-<h2>회원 목록</h2>
+<h3>회원 목록</h3>
 <a href="/">Home</a>
 <table>
     <tr>

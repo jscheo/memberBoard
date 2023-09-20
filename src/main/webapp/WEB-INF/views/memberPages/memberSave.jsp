@@ -4,19 +4,21 @@
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+
 </head>
 <body>
 <%@include file="component/header.jsp" %>
-    <h2>회원가입</h2>
-    <form action="/member/save" method="post" enctype="multipart/form-data">
-        <input type="text" name="memberEmail" id="emailCheck" onkeyup="email_check()" placeholder="이메일"><br>
+    <h3 class="text-center">회원가입</h3>
+    <form action="/member/save" method="post" enctype="multipart/form-data" class="text-center">
+        <input type="text" name="memberEmail" id="emailCheck" onkeyup="email_check()" placeholder="이메일" class="rounded"><br>
         <p id="email-check-area"></p>
-        <input type="text" name="memberPassword" id="passCheck" onkeyup="pass_check()" placeholder="비밀번호"><br>
+        <input type="text" name="memberPassword" id="passCheck" onkeyup="pass_check()" placeholder="비밀번호" class="rounded"><br>
         <P id="pass-check-area"></P>
-        <input type="text" name="memberName" placeholder="이름"><br>
-        <input type="text" name="memberMobile" placeholder="전화번호"><br>
-        <input type="file" name="memberFile" multiple><br>
-            <input type="submit"  value="가입">
+        <input type="text" name="memberName" placeholder="이름" class="rounded"><br>
+        <input type="text" name="memberMobile" placeholder="전화번호" class="rounded"><br>
+        <p></p>
+        <input class="mt-2 ms-3" type="file" name="memberFile" multiple class="rounded mt-2" ><br>
+            <input class="mt-2" type="submit"  value="가입">
     </form>
 <%@include file="component/footer.jsp" %>
 </body>

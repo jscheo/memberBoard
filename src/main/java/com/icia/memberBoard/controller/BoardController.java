@@ -22,7 +22,7 @@ public class BoardController {
     private BoardService boardService;
     @Autowired
     private CommentService commentService;
-
+    //게시글 저장
     @GetMapping("/save")
     public String save() {
         return "/boardPages/boardSave";
@@ -33,7 +33,7 @@ public class BoardController {
         boardService.save(boardDTO);
         return "redirect:/board/list";
     }
-
+    //게시글 목록 및 페이징 (검색,페이지조절)
     @GetMapping("/list")
     public String list(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
                        @RequestParam(value = "q", required = false, defaultValue = "") String q,
@@ -63,7 +63,7 @@ public class BoardController {
         return "/boardPages/boardList";
     }
 
-
+    //게시글 상세
     @GetMapping("/detail")
     public String detail(@RequestParam("id") Long id,
                          @RequestParam(value = "page", required = false, defaultValue = "1") int page,
@@ -89,7 +89,7 @@ public class BoardController {
         model.addAttribute("page", page);
         return "boardPages/boardDetail";
     }
-
+    //샘플 데이터 추가(20개)
     @GetMapping("/sample")
     public String sampleData() {
         for (int i = 1; i <= 20; i++) {
@@ -101,7 +101,7 @@ public class BoardController {
         }
         return "redirect:/board/list";
     }
-
+    //게시글 수정
     @GetMapping("/update")
     public String update(@RequestParam("id") Long id, Model model){
         BoardDTO boardDTO = boardService.updateForm(id);
@@ -114,6 +114,7 @@ public class BoardController {
         boardService.update(boardDTO);
         return "redirect:/board/list";
     }
+    //게시글 삭제
     @GetMapping("/delete")
     public String delete(@RequestParam("id") Long id){
         boardService.delete(id);

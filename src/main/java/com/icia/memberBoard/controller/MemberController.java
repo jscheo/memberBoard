@@ -17,11 +17,12 @@ import java.util.List;
 public class MemberController {
     @Autowired
     private MemberService memberService;
-
+    //마이페이지 이동
     @GetMapping("/main")
     public String main (){
         return "/memberPages/memberMain";
     }
+    //회원가입
     @GetMapping("/save")
     public String save(){
         return "memberPages/memberSave";
@@ -33,7 +34,7 @@ public class MemberController {
         memberService.save(memberDTO);
         return "memberPages/memberLogin";
     }
-
+    //이메일 중복체크
     @GetMapping("/check")
     public @ResponseBody String emailCheck(@RequestParam("memberEmail") String memberEmail){
         MemberDTO memberDTO = memberService.findByEmail(memberEmail);
@@ -42,7 +43,7 @@ public class MemberController {
         }
         return "no";
     }
-
+    //로그인
     @GetMapping("/login")
     public String login(){
         return "memberPages/memberLogin";
@@ -51,8 +52,10 @@ public class MemberController {
     @PostMapping("/login")
     public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session, Model model){
         MemberDTO memberDTO1 = memberService.login(memberDTO);
+        System.out.println("memberDTO1 = " + memberDTO1);
         if(memberDTO1 != null){
             session.setAttribute("loginEmail", memberDTO1.getMemberEmail());
+            session.setAttribute("loginId", memberDTO1.getId());
             model.addAttribute("member", memberDTO1);
             return "redirect:/board/list";
         }else{
@@ -60,26 +63,26 @@ public class MemberController {
         }
 
     }
-
+    //로그아웃
     @GetMapping("/logout")
     public String logout(HttpSession session){
         session.removeAttribute("loginEmail");
         return "index";
     }
-
+    //관리자메뉴 들어가기
     @GetMapping("/admin")
     public String admin(Model model){
         List<MemberDTO> memberDTO = memberService.findAll();
         model.addAttribute("memberList", memberDTO);
         return "/memberPages/memberList";
     }
-
+    //회원삭제
     @GetMapping("/delete")
     public String delete(@RequestParam("id") Long id){
         memberService.delete(id);
         return "redirect:/member/admin";
     }
-
+    //수정
     @GetMapping("/update")
     public String update(@RequestParam("memberEmail") String memberEmail, Model model){
         MemberDTO memberDTO= memberService.findByEmail(memberEmail);
@@ -92,10 +95,10 @@ public class MemberController {
         memberService.update(memberDTO);
         return "/memberPages/memberMain";
     }
+    //회원탈퇴
     @GetMapping("/memberDelete")
     public String memberDelete(HttpSession session){
         Object memberEmail = session.getAttribute("loginEmail");
-        System.out.println("memberEmail = " + memberEmail);
         memberService.deleteMember((String) memberEmail);
         return "index";
     }

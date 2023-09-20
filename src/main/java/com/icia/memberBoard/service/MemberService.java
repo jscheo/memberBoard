@@ -15,7 +15,7 @@ import java.util.List;
 public class MemberService {
     @Autowired
     private MemberRepository memberRepository;
-
+    // 회원가입/ 프로필 사진 저장 처리
     public void save(MemberDTO memberDTO) throws IOException {
         if (memberDTO.getMemberFile() == null) {
             memberDTO.setMemberProfile(0);
@@ -36,29 +36,29 @@ public class MemberService {
         }
 
     }
-
+    // 이메일 중목체크
     public MemberDTO findByEmail(String memberEmail) {
         return memberRepository.findByEmail(memberEmail);
     }
 
-
+    //로그인 처리
     public MemberDTO login(MemberDTO memberDTO) {
         return memberRepository.login(memberDTO);
     }
 
-
+    //회원목록(관리자 삭제)
     public List<MemberDTO> findAll() {
         return memberRepository.findAll();
     }
-
+    // 회원삭제
     public void delete(Long id) {
         memberRepository.delete(id);
     }
-
+    //수정
     public void update(MemberDTO memberDTO) {
         memberRepository.update(memberDTO);
     }
-
+    //회원탈퇴
     public void deleteMember(String memberEmail) {
         memberRepository.deleteMember(memberEmail);
     }

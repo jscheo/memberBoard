@@ -4,25 +4,27 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/css/main.css">
+
 </head>
 <body>
 <%@include file="component/header.jsp" %>
-<h2>마이페이지</h2>
-<ul>
+<h3 class="text-center">마이페이지</h3>
+<ul class="justify-content-center">
     <li>
-        <a href="/">Home</a>
+        <a class="text-decoration-none" href="/">Home</a>
     </li>
     <c:if test="${sessionScope.loginEmail == 'admin'}">
         <li class="menu-item">
-            <a href="/member/admin">관리자 메뉴</a>
+            <a class="text-decoration-none" href="/member/admin">관리자 메뉴</a>
         </li>
     </c:if>
     </li>
     <li>
-        <button class="btn btn-warning" onclick="update_fn()">회원정보 수정</button>
+        <input type="button" onclick="update_fn()" value="회원정보 수정">
     </li>
     <li>
-        <a href="/member/memberDelete?memberEmail=${sessionScope.loginEmail}">회원 탈퇴</a>
+        <a class="text-decoration-none" href="/member/memberDelete?memberEmail=${sessionScope.loginEmail}">회원 탈퇴</a>
     </li>
 </ul>
 <%@include file="component/footer.jsp" %>

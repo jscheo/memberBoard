@@ -3,6 +3,8 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/css/main.css">
+
 </head>
 <body>
 <%@include file="component/header.jsp" %>
@@ -14,6 +16,7 @@
         <input type="file" name="boardFile" multiple> <br>
         <input type="submit" value="작성">
     </form>
+
 <%@include file="component/footer.jsp" %>
 </body>
 </html>
